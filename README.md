@@ -1,15 +1,32 @@
-# FouraEthiopia — Firebase + Vercel (Phone-Friendly)
-Frontend-only (React + Vite) using Firebase Auth + Firestore. No custom server needed.
-Deploy from your phone with GitHub + Vercel.
+# Fouraethiopia — Full Build
 
-## Firebase
-Edit `src/firebase.js` and ensure the `firebaseConfig` values are correct for your project.
-If your apiKey is still a placeholder, replace it with the real one from Firebase Project Settings.
+Features:
+- Next.js (App Router) + Tailwind
+- MongoDB (Mongoose) with JWT auth (register/login) and Google Sign-In (ID token verify → app JWT)
+- Admin whitelist via `ADMIN_EMAILS`
+- Exams: create (admin), list with filters, detail page with embedded PDF viewer
+- File upload to Vercel Blob (signed upload URL)
+- Browse page with Ethiopian university presets and semesters
+- Tasks page with **Add Task / Feature** modal and backend storage
+- Seeder endpoint to auto-create admin + sample Ethiopian-style exams and tasks
 
-## Build
-npm install
-npm run build
+## Getting started
+1. `npm install`
+2. Create `.env` by copying `.env.example` and fill values.
+3. `npm run dev`
 
-## Dev
-npm install
-npm run dev
+## Deploy to Vercel
+Add env vars:
+- `MONGODB_URI`
+- `JWT_SECRET`
+- `GOOGLE_CLIENT_ID` and `NEXT_PUBLIC_GOOGLE_CLIENT_ID`
+- `VERCEL_BLOB_RW_TOKEN`
+- `ADMIN_EMAILS` (comma-separated)
+- `SEED_KEY`
+
+## One-time Seeding
+Open: `/api/dev/seed?key=YOUR_SEED_KEY` after deploy. Returns admin login (password: `Admin$12345`).
+
+## Notes
+- PDF viewer uses `<iframe>`; provide any public PDF URL (or upload via Admin to Vercel Blob).
+- Tasks POST does not require auth (so users can suggest features). You can restrict it later if needed.
